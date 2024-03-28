@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.active {
+  color: #222831;
+}
+.error-message {
+  color: #222831;
+  font-weight: 500;
+}
+
+
+::-webkit-scrollbar {
+  width: 12px;
+  z-index: -10;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  z-index: -10;
+}
+::-webkit-scrollbar-thumb {
+  background: #2D9596;
+  border-radius: 10px;
+  z-index: -10;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #222831;
+  z-index: -10;
+}
+
+.antbtn:hover {
+  color: red;
+}
