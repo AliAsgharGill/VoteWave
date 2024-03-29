@@ -1,12 +1,43 @@
-import { useState } from "react";
+import { Button, Modal } from "antd";
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { removeUser } from "../../Slices/userSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { FaRegCircleUser } from "react-icons/fa6";
+
 
 export const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [change, setChange] = useState(false);
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   // const currentUser = JSON.parse(localStorage.getItem("user"));
 
   // const [isAdmin, setIsAdmin] = useState(false);
+
+  // const user = JSON.parse(localStorage.getItem('user')!) as string;
+
+  const userString = localStorage.getItem("user");
+  const user = userString ? JSON.parse(userString) : null;
+
+  useEffect(() => {}, [change]);
+
+  const handleLogout = () => {
+    Modal.confirm({
+      title: "Confirm Logout",
+      content: "Are you sure you want Logout?",
+      okButtonProps: { style: { backgroundColor: "#2D9596" } },
+      onOk() {
+        localStorage.removeItem("user");
+        dispatch(removeUser());
+        setChange(true);
+        navigate("/login/user");
+      },
+      onCancel() {},
+    });
+  };
 
   return (
     <div className="bg-primaryColor-900">
@@ -18,8 +49,9 @@ export const Nav = () => {
             title="Vote.Wave"
             className="inline-flex items-center"
           >
-            <img src="\Images\VoteWaveT.png" alt="Vote.Wave" width='160px' />                        
+            <img src="\Images\VoteWaveT.png" alt="Vote.Wave" width="160px" />
           </NavLink>
+          {/* Menu */}
           <ul className="flex items-center hidden space-x-8 lg:flex">
             <li>
               <NavLink
@@ -52,28 +84,53 @@ export const Nav = () => {
               </NavLink>
             </li>
           </ul>
-          <ul className="flex items-center hidden space-x-8 lg:flex">
-            <li>
-              <Link
-                to="/login/user"
-                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
-                aria-label="Login"
-                title="Login"
-              >
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/signup/user"
-                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
-                aria-label="Sign up"
-                title="Sign up"
-              >
-                Sign up
-              </Link>
-            </li>
-          </ul>
+
+          {/* Login System */}
+
+          {user ? (
+            <div className="flex justify-around space-x-5 items-center ">
+              <div className="flex items-center space-x-1 hover:text-white cursor-pointer ">
+                {" "}
+                <FaRegCircleUser />
+                <b>{user.firstName}</b>{" "}
+              </div>
+
+              <ul className="flex items-center hidden space-x-8 lg:flex">
+                <li>
+                  <Button
+                    type="button"
+                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </Button>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <ul className="flex items-center hidden space-x-8 lg:flex">
+              <li>
+                <Link
+                  to="/login/user"
+                  className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+                  aria-label="Login"
+                  title="Login"
+                >
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/signup/user"
+                  className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+                  aria-label="Sign up"
+                  title="Sign up"
+                >
+                  Sign up
+                </Link>
+              </li>
+            </ul>
+          )}
           <div className="lg:hidden">
             <button
               aria-label="Open Menu"

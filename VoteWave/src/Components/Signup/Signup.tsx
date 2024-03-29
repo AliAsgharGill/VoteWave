@@ -1,59 +1,103 @@
-import { Form, Input, Button, Upload } from "antd";
+import { Form, Input, Button, Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { RiLockPasswordFill, RiUserFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { signupUser } from "../../Slices/authSlice";
+import axios from "axios";
 
 interface FormValues {
-  name: string;
+  firstName: string;
+  secondName: string;
   email: string;
   password: string;
 }
 
 const Signup = ({ type }: { type: string }) => {
+  const [form] = Form.useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const onFinish = async (values: FormValues) => {
     console.log("Received Values:", values);
 
-    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const response = await axios.get(
+      `http://localhost:3000/${type}s?email=${values.email}`
+    );
 
-    // if (!emailRegex.test(values.email)) {
-    //   message.error("Invalid Email Format, Please Enter Valid Email.");
-    //   return;
-    // }
+    if (response.data.length > 0) {
+      message.warning(
+        `Email ${values.email} Already Exists. Please Login Instead.`
+      );
+      return;
+    }
 
-    // const passwordRegex =
-    //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-    // if (!passwordRegex.test(values.password)) {
-    //   message.error(
-    //     "Password must have least one uppercase ,one lowercase,one digits special character (@$!%*?&)"
-    //   );
-    // }
+    dispatch(signupUser(values));
+    form.resetFields();
+    navigate(`/login/${type}`);
+    message.success("Successfully Register. Please Login");
   };
 
   return (
     <>
-      <div className="min-h-screen flex justify-center items-center">
+      <div className="min-h-screen p-5 flex justify-center items-center">
         <Form
+          form={form}
           className="bg-primaryColor-900 p-10 rounded mt-20 sm:w-1/2 sm:mt-30 md:w-1/3  md:mt-0"
           name="signup-form"
           onFinish={onFinish}
           layout="vertical"
         >
           <Form.Item
-            label="Name"
-            name="name"
+            label="First Name"
+            name="firstName"
             rules={[
               {
                 required: true,
                 message: (
-                  <span className="error-message">Please enter your name!</span>
+                  <span className="font-bold text-text-800 ">
+                    Please enter your first name!
+                  </span>
                 ),
               },
               {
                 min: 3,
                 message: (
-                  <span className="error-message">
+                  <span className="font-bold text-text-800">
+                    Name must be at least 3 characters long!
+                  </span>
+                ),
+              },
+              {
+                max: 9,
+                message: (
+                  <span className="font-bold text-text-800">
+                    Keep Less than 9 characters!
+                  </span>
+                ),
+              },
+            ]}
+          >
+            <Input placeholder="Name" prefix={<RiUserFill />} />
+          </Form.Item>
+
+          <Form.Item
+            label="Second Name"
+            name="secondName"
+            rules={[
+              {
+                required: true,
+                message: (
+                  <span className="font-bold text-text-800 ">
+                    Please enter your second name!
+                  </span>
+                ),
+              },
+              {
+                min: 3,
+                message: (
+                  <span className="font-bold text-text-800">
                     Name must be at least 3 characters long!
                   </span>
                 ),
@@ -70,7 +114,7 @@ const Signup = ({ type }: { type: string }) => {
               {
                 required: true,
                 message: (
-                  <span className="error-message">
+                  <span className="font-bold text-text-800">
                     Please enter your email!
                   </span>
                 ),
@@ -78,7 +122,7 @@ const Signup = ({ type }: { type: string }) => {
               {
                 pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                 message: (
-                  <span className="error-message">
+                  <span className="font-bold text-text-800">
                     Invalid Email Format, Please Enter Valid Email
                   </span>
                 ),
@@ -95,7 +139,7 @@ const Signup = ({ type }: { type: string }) => {
               {
                 required: true,
                 message: (
-                  <span className="error-message">
+                  <span className="font-bold text-text-800">
                     Please enter your password!
                   </span>
                 ),
@@ -103,7 +147,7 @@ const Signup = ({ type }: { type: string }) => {
               {
                 min: 6,
                 message: (
-                  <span className="error-message">
+                  <span className="font-bold text-text-800">
                     Password must be at least 6 characters long!
                   </span>
                 ),
@@ -111,7 +155,7 @@ const Signup = ({ type }: { type: string }) => {
               {
                 max: 12,
                 message: (
-                  <span className="error-message">
+                  <span className="font-bold text-text-800">
                     Password must be less than 12 characters long!
                   </span>
                 ),
@@ -119,7 +163,7 @@ const Signup = ({ type }: { type: string }) => {
               {
                 pattern: /^(?=.*[a-z])/,
                 message: (
-                  <span className="error-message">
+                  <span className="font-bold text-text-800">
                     Must have one lowercase letter
                   </span>
                 ),
@@ -127,7 +171,7 @@ const Signup = ({ type }: { type: string }) => {
               {
                 pattern: /^(?=.*[A-Z])/,
                 message: (
-                  <span className="error-message">
+                  <span className="font-bold text-text-800">
                     Must have one uppercase letter
                   </span>
                 ),
@@ -135,13 +179,15 @@ const Signup = ({ type }: { type: string }) => {
               {
                 pattern: /^(?=.*\d)/,
                 message: (
-                  <span className="error-message">Must have one digit</span>
+                  <span className="font-bold text-text-800">
+                    Must have one digit
+                  </span>
                 ),
               },
               {
                 pattern: /^(?=.*[@$!%*?&])/,
                 message: (
-                  <span className="error-message">
+                  <span className="font-bold text-text-800">
                     Must have any special character (@$!%*?&)
                   </span>
                 ),
@@ -154,7 +200,7 @@ const Signup = ({ type }: { type: string }) => {
             />
           </Form.Item>
 
-          <Form.Item
+          {/* <Form.Item
             name="image"
             label="Upload Your Image"
             className="font-semibold"
@@ -169,7 +215,7 @@ const Signup = ({ type }: { type: string }) => {
               {
                 required: true,
                 message: (
-                  <span className="error-message">Please upload an image</span>
+                  <span className="font-bold text-text-800">Please upload an image</span>
                 ),
               },
             ]}
@@ -177,11 +223,12 @@ const Signup = ({ type }: { type: string }) => {
             <Upload name="image" action="/upload" listType="picture">
               <Button icon={<UploadOutlined />}>Click to upload</Button>
             </Upload>
-          </Form.Item>
+          </Form.Item> */}
 
           <Form.Item>
             <Button
-              className="w-full bg-black"
+              className="w-full bg-black hover:'FEB73F'"
+              // style={{ background: "#FEB73F" }}
               type="primary"
               htmlType="submit"
             >
@@ -195,7 +242,7 @@ const Signup = ({ type }: { type: string }) => {
                 className="text-white font-bold hover:text-secondaryColor-900 hover:underline "
                 to="/login/user"
               >
-                   Login Now
+                Login Now
               </Link>
             </p>
           </Form.Item>

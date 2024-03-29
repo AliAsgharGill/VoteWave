@@ -1,12 +1,52 @@
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message } from "antd";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { setUser } from "../../Slices/userSlice";
+import { setAdmin } from "../../Slices/adminSlice";
 
-const Login = ({ type }) => {
-  const onFinish = async (values) => {
+interface FromValues {
+  email: string;
+  password: string;
+}
+
+const Login = ({ type }: { type: string }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const onFinish = async (values: FromValues) => {
     // console.log("Values:", values);
+    try {
+      const emailResponse = await axios.get(
+        `http://localhost:3000/${type}s?email=${values.email}`
+      );
+
+      if (!emailResponse.data.length) {
+        message.warning(`Invalid Email ${values.email}. Please Signup First`);
+        return;
+      }
+
+      const userData = emailResponse.data[0];
+      if (userData.password !== values.password) {
+        message.error("Invalid password. Please try again.");
+        return;
+      }
+
+      if (type === "admin") {
+        message.success("Welcome Back Admin");
+        localStorage.setItem("user", JSON.stringify(userData));
+        dispatch(setAdmin(userData));
+        navigate("/dashboard");
+      } else if (type === "user") {
+        message.success("Welcome Back");
+        localStorage.setItem("user", JSON.stringify(userData));
+        dispatch(setUser(userData));
+        navigate("/");
+      }
+    } catch (error) {
+      console.warn("Error", error);
+    }
   };
 
   return (
@@ -80,7 +120,7 @@ const Login = ({ type }) => {
                 className="text-white hover:text-secondaryColor-900 font-bold  hover:underline "
                 to="/signup/user"
               >
-                Register Now
+                Signup Now
               </Link>
             </p>
 

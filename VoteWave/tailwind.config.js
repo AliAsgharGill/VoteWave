@@ -12,6 +12,9 @@ export default {
           800: "#222831",
           900: "#31363F",
         },
+        text:{
+          800:"#FEB73F"
+        },
         alphaColor: {
           900: "#9AD0C2",
         },

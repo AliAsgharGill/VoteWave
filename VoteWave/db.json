@@ -1,8 +1,24 @@
 {
   "tokens": [],
-  "users": [],
+  "users": [
+    {
+      "id": "5d51",
+      "firstName": "Ali",
+      "secondName": "Asghar",
+      "email": "stylinalivlogs@gmail.com",
+      "password": "Ali@123"
+    }
+  ],
   "allowedUsers": [],
   "candidates": [],
   "campaigns": [],
-  "admins": []
+  "admins": [
+    {
+      "id": "5d1f",
+      "firstName": "Admin",
+      "secondName": "Admin",
+      "email": "admin@gmail.com",
+      "password": "Admin@123"
+    }
+  ]
 }
