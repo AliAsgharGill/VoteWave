@@ -35,7 +35,7 @@ const Login = ({ type }: { type: string }) => {
 
       if (type === "admin") {
         message.success("Welcome Back Admin");
-        localStorage.setItem("user", JSON.stringify(userData));
+        localStorage.setItem("admin", JSON.stringify(userData));
         dispatch(setAdmin(userData));
         navigate("/dashboard");
       } else if (type === "user") {

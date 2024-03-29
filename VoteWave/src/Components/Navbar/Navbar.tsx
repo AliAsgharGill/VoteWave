@@ -1,11 +1,12 @@
-import { Button, Modal } from "antd";
+import { Button, Modal, Dropdown, Space } from "antd";
+import { DownOutlined } from '@ant-design/icons';
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { removeUser } from "../../Slices/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { FaRegCircleUser } from "react-icons/fa6";
-
+import { removeAdmin } from "../../Slices/adminSlice";
 
 export const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,6 +22,9 @@ export const Nav = () => {
 
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
+
+  const adminString = localStorage.getItem("admin");
+  const admin = adminString ? JSON.parse(adminString) : null;
 
   useEffect(() => {}, [change]);
 
@@ -38,7 +42,35 @@ export const Nav = () => {
       onCancel() {},
     });
   };
+  const handleLogoutAdmin = () => {
+    Modal.confirm({
+      title: "Confirm Logout",
+      content: "Are you sure you want Logout?",
+      okButtonProps: { style: { backgroundColor: "#2D9596" } },
+      onOk() {
+        localStorage.removeItem("admin");
+        dispatch(removeAdmin());
+        setChange(true);
+        navigate("/login/user");
+      },
+      onCancel() {},
+    });
+  };
 
+  const GoToProfile = () => {
+    navigate("/user");
+  };
+
+  const items = [
+    {
+      label: <NavLink to="/dashboard">Dashboard</NavLink>,
+      key: "1",
+    },
+    {
+      label: <NavLink to="/campaignsManagement">Manage Campaigns</NavLink>,
+      key: "2",
+    },
+  ];
   return (
     <div className="bg-primaryColor-900">
       <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
@@ -69,6 +101,7 @@ export const Nav = () => {
                 aria-label="Campaigns"
                 title="Campaigns"
                 className="hover:underline font-bold me-4 md:me-6  tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
+                // onClick={handleUnLoginUser}
               >
                 Campaigns
               </NavLink>
@@ -79,58 +112,108 @@ export const Nav = () => {
                 aria-label="Result"
                 title="Result"
                 className="hover:underline font-bold me-4 md:me-6  tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400 "
+                // onClick={handleUnLoginUser}
               >
                 Result
               </NavLink>
             </li>
           </ul>
-
-          {/* Login System */}
-
-          {user ? (
-            <div className="flex justify-around space-x-5 items-center ">
-              <div className="flex items-center space-x-1 hover:text-white cursor-pointer ">
-                {" "}
-                <FaRegCircleUser />
-                <b>{user.firstName}</b>{" "}
-              </div>
-
-              <ul className="flex items-center hidden space-x-8 lg:flex">
+          {/* Login, Singup, User Name, Logout */}
+          <ul className="flex items-center hidden space-x-8 lg:flex">
+            {!user && !admin ? (
+              <>
+                <li>
+                  <Link
+                    to="/login/user"
+                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+                    aria-label="Login"
+                    title="Login"
+                  >
+                    Login
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/signup/user"
+                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+                    aria-label="Sign up"
+                    title="Sign up"
+                  >
+                    Sign up
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <div
+                    className="flex items-center space-x-1 hover:text-white cursor-pointer"
+                    onClick={GoToProfile}
+                  >
+                    <FaRegCircleUser />
+                    <b>{user ? user.firstName : admin.firstName}</b>
+                  </div>
+                </li>
+                {admin && (
+                  <li>
+                    <div>
+                      <div>
+                        <Dropdown
+                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+                          menu={{
+                            items,
+                          }}
+                        >
+                          <a onClick={(e) => e.preventDefault()}>
+                            <Space>
+                              Admin
+                              <DownOutlined />
+                            </Space>
+                          </a>
+                        </Dropdown>
+                        <div
+                          id="dropdown"
+                          className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+                        >
+                          <ul
+                            className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                            aria-labelledby="dropdownDefaultButton"
+                          >
+                            <li>
+                              <NavLink
+                                to="/result"
+                                className="hover:underline font-bold me-4 md:me-6 "
+                              >
+                                Dashboard
+                              </NavLink>
+                            </li>
+                            <li>
+                              <NavLink
+                                to="/result"
+                                className="hover:underline font-bold me-4 md:me-6 "
+                              >
+                                Manage Campaigns
+                              </NavLink>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                )}
                 <li>
                   <Button
                     type="button"
                     className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
-                    onClick={handleLogout}
+                    onClick={user ? handleLogout : handleLogoutAdmin}
                   >
                     Logout
                   </Button>
                 </li>
-              </ul>
-            </div>
-          ) : (
-            <ul className="flex items-center hidden space-x-8 lg:flex">
-              <li>
-                <Link
-                  to="/login/user"
-                  className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
-                  aria-label="Login"
-                  title="Login"
-                >
-                  Login
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/signup/user"
-                  className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
-                  aria-label="Sign up"
-                  title="Sign up"
-                >
-                  Sign up
-                </Link>
-              </li>
-            </ul>
-          )}
+              </>
+            )}
+          </ul>
+
           <div className="lg:hidden">
             <button
               aria-label="Open Menu"

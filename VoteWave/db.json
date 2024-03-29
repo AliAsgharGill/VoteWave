@@ -7,6 +7,13 @@
       "secondName": "Asghar",
       "email": "stylinalivlogs@gmail.com",
       "password": "Ali@123"
+    },
+    {
+      "id": "0322",
+      "firstName": "Hamza",
+      "secondName": "Tanveer",
+      "email": "hamzaTanveer@gmail.com",
+      "password": "Hamza@1"
     }
   ],
   "allowedUsers": [],

@@ -2,7 +2,7 @@ import React from "react";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
 
-const Campaigns = () => {
+const Dashboard = () => {
   const navigate = useNavigate();
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
@@ -11,13 +11,13 @@ const Campaigns = () => {
   const admin = adminString ? JSON.parse(adminString) : null;
 
   React.useEffect(() => {
-    if (!admin && !user) {
-      message.warning("Please login to access! ");
+    if (!admin) {
+        message.warning("Please login as admin to access! ");
       navigate("/login/user");
     }
   }, [admin, navigate, user]);
 
-  return <>{!user || !admin ? <h1>Campaigns</h1> : null}</>;
+  return <>{admin ? <h1>Dashboard</h1> : null}</>;
 };
 
-export default Campaigns;
+export default Dashboard;

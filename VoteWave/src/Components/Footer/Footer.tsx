@@ -50,7 +50,7 @@ export const Footer = () => {
 
       <div className="flex flex-col justify-between pt-5 pb-10 border-t sm:flex-row">
         <p className="text-sm text-alphaColor-900">
-          © Copyright 2024 Lorem Inc. All rights reserved.
+          © Copyright 2024 VoteWave. All rights reserved.
         </p>
         <div className="flex items-center mt-4 space-x-4 sm:mt-0">
           <NavLink

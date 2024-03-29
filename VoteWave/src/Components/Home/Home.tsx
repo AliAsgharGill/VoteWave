@@ -3,7 +3,9 @@ import React from "react";
 const Home = () => {
   return (
     <>
-      <h1>Home Page</h1>
+      <div className="min-h-80">
+        <h1>Home Page</h1>
+      </div>
     </>
   );
 };
