@@ -2,6 +2,7 @@ import { Form, Input, Button, Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { RiLockPasswordFill, RiUserFill } from "react-icons/ri";
 import { MdEmail } from "react-icons/md";
+import { FaExternalLinkSquareAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signupUser } from "../../Slices/authSlice";
@@ -12,6 +13,7 @@ interface FormValues {
   secondName: string;
   email: string;
   password: string;
+  image: string;
 }
 
 const Signup = ({ type }: { type: string }) => {
@@ -197,6 +199,26 @@ const Signup = ({ type }: { type: string }) => {
             <Input.Password
               placeholder="Password"
               prefix={<RiLockPasswordFill />}
+            />
+          </Form.Item>
+
+          <Form.Item
+            label="Image Link"
+            name="image"
+            rules={[
+              {
+                required: true,
+                message: (
+                  <span className="font-bold text-text-800">
+                    Please enter Image Link!
+                  </span>
+                ),
+              },
+            ]}
+          >
+            <Input
+              placeholder="https://encrypted-tbn0.gstatic.com"
+              prefix={<FaExternalLinkSquareAlt />}
             />
           </Form.Item>
 

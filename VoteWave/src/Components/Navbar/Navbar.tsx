@@ -1,5 +1,5 @@
 import { Button, Modal, Dropdown, Space } from "antd";
-import { DownOutlined } from '@ant-design/icons';
+import { DownOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { removeUser } from "../../Slices/userSlice";
@@ -61,16 +61,38 @@ export const Nav = () => {
     navigate("/user");
   };
 
-  const items = [
+  const userItems = [
     {
-      label: <NavLink to="/dashboard">Dashboard</NavLink>,
+      label: <NavLink to="/user">Profile</NavLink>,
       key: "1",
     },
     {
-      label: <NavLink to="/campaignsManagement">Manage Campaigns</NavLink>,
+      label: <h1 onClick={handleLogout}>Logout</h1>,
       key: "2",
     },
   ];
+
+  const adminItems = [
+    {
+      label: <NavLink to="/user">Profile</NavLink>,
+      key: "1",
+    },
+    {
+      label: <NavLink to="/dashboard">Dashboard</NavLink>,
+      key: "2",
+    },
+    {
+      label: <NavLink to="/campaignsManagement">Manage Campaigns</NavLink>,
+      key: "3",
+    },
+    {
+      label: <h1 onClick={handleLogoutAdmin}>Logout</h1>,
+      key: "4",
+    },
+  ];
+
+  const items = user ? userItems : adminItems;
+
   return (
     <div className="bg-primaryColor-900">
       <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
@@ -145,71 +167,37 @@ export const Nav = () => {
               </>
             ) : (
               <>
-                <li>
-                  <div
-                    className="flex items-center space-x-1 hover:text-white cursor-pointer"
-                    onClick={GoToProfile}
-                  >
-                    <FaRegCircleUser />
-                    <b>{user ? user.firstName : admin.firstName}</b>
-                  </div>
-                </li>
-                {admin && (
+                {user || admin ? (
                   <li>
                     <div>
                       <div>
                         <Dropdown
-                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+                          className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+                          // className="flex items-center space-x-1 hover:text-white cursor-pointer"
                           menu={{
                             items,
                           }}
                         >
                           <a onClick={(e) => e.preventDefault()}>
                             <Space>
-                              Admin
+                              <div className="flex items-center space-x-1 hover:text-white cursor-pointer">
+                              <img className=" rounded-full border-white " src={user ? user.image : admin.image} alt="Image" height="30px" width="30px" />
+                                {/* <FaRegCircleUser /> */}
+                                <b>{user ? user.firstName : admin.firstName}</b>
+                              </div>
                               <DownOutlined />
+                              
                             </Space>
                           </a>
                         </Dropdown>
                         <div
                           id="dropdown"
                           className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-                        >
-                          <ul
-                            className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                            aria-labelledby="dropdownDefaultButton"
-                          >
-                            <li>
-                              <NavLink
-                                to="/result"
-                                className="hover:underline font-bold me-4 md:me-6 "
-                              >
-                                Dashboard
-                              </NavLink>
-                            </li>
-                            <li>
-                              <NavLink
-                                to="/result"
-                                className="hover:underline font-bold me-4 md:me-6 "
-                              >
-                                Manage Campaigns
-                              </NavLink>
-                            </li>
-                          </ul>
-                        </div>
+                        ></div>
                       </div>
                     </div>
                   </li>
-                )}
-                <li>
-                  <Button
-                    type="button"
-                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
-                    onClick={user ? handleLogout : handleLogoutAdmin}
-                  >
-                    Logout
-                  </Button>
-                </li>
+                ) : null}
               </>
             )}
           </ul>
@@ -356,3 +344,43 @@ export const Nav = () => {
     </div>
   );
 };
+
+// {user &&
+// (
+//   <li>
+//     <div>
+//       <div>
+//         {user && (
+//           <Dropdown
+//             className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+//             menu={{
+//               items,
+//             }}
+//           >
+//             <a onClick={(e) => e.preventDefault()}>
+//               <Space>
+//                 {/* User */}
+//                 <div
+//                   className="flex items-center space-x-1 hover:text-white cursor-pointer"
+//                   // onClick={GoToProfile}
+//                 >
+//                   <FaRegCircleUser />
+//                   <b>
+//                     {user ? user.firstName : admin.firstName}
+//                   </b>
+//                 </div>
+//                 <DownOutlined />
+//               </Space>
+//             </a>
+//           </Dropdown>
+//         )}
+//         <div
+//           id="dropdown"
+//           className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+//         ></div>
+//       </div>
+//     </div>
+//   </li>
+// )}
+//
+//

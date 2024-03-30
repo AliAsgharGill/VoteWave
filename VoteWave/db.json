@@ -2,18 +2,12 @@
   "tokens": [],
   "users": [
     {
-      "id": "5d51",
+      "id": "512c",
       "firstName": "Ali",
       "secondName": "Asghar",
-      "email": "stylinalivlogs@gmail.com",
-      "password": "Ali@123"
-    },
-    {
-      "id": "0322",
-      "firstName": "Hamza",
-      "secondName": "Tanveer",
-      "email": "hamzaTanveer@gmail.com",
-      "password": "Hamza@1"
+      "email": "AliAsghar@gmail.com",
+      "password": "sdfasdf21@SG",
+      "image": "https://lh3.googleusercontent.com/-O6KL0nLbcQI/AAAAAAAAAAI/AAAAAAAAAAA/ALKGfkkeebSzPkQdZ3bTJrbO-_yXZ-5DnQ/photo.jpg?sz=46"
     }
   ],
   "allowedUsers": [],
@@ -25,7 +19,8 @@
       "firstName": "Admin",
       "secondName": "Admin",
       "email": "admin@gmail.com",
-      "password": "Admin@123"
+      "password": "Admin@123",
+      "image": "https://lh3.googleusercontent.com/-O6KL0nLbcQI/AAAAAAAAAAI/AAAAAAAAAAA/ALKGfkkeebSzPkQdZ3bTJrbO-_yXZ-5DnQ/photo.jpg?sz=46"
     }
   ]
 }
