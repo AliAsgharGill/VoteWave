@@ -10,9 +10,27 @@
       "image": "https://lh3.googleusercontent.com/-O6KL0nLbcQI/AAAAAAAAAAI/AAAAAAAAAAA/ALKGfkkeebSzPkQdZ3bTJrbO-_yXZ-5DnQ/photo.jpg?sz=46"
     }
   ],
-  "allowedUsers": [],
+  "allowedUsers": [
+    {
+      "id": "a30a",
+      "email": "aliallowed@gmail.com"
+    },
+    {
+      "id": "3044",
+      "email": "ali@gamil.com"
+    }
+  ],
   "candidates": [],
-  "campaigns": [],
+  "campaigns": [
+    {
+      "id": "340f",
+      "name": "First Campaign",
+      "description": "First Campaign",
+      "image": "First Campaign link",
+      "startDate": "2024-04-01T02:39:03.400Z",
+      "endDate": "2024-04-25T19:00:00.000Z"
+    }
+  ],
   "admins": [
     {
       "id": "5d1f",

@@ -1,12 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { Candidate } from "../Types/types";
+import { Candidate, CandidatesState } from "../Types/types";
 import axios from "axios";
-
-interface CandidatesState {
-  list: Candidate[];
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null;
-}
 
 const initialState: CandidatesState = {
   list: [],
@@ -88,3 +82,11 @@ const candidatesSlice = createSlice({
 });
 
 export default candidatesSlice.reducer;
+
+export const candidatesSliceAction = {
+  ...candidatesSlice.actions,
+  fetchCandidates,
+  addCandidate,
+  updateCandidate,
+  deleteCandidate,
+};

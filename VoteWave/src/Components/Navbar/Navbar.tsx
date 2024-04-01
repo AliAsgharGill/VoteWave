@@ -1,11 +1,10 @@
-import { Button, Modal, Dropdown, Space } from "antd";
+import { Modal, Dropdown, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { removeUser } from "../../Slices/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { FaRegCircleUser } from "react-icons/fa6";
 import { removeAdmin } from "../../Slices/adminSlice";
 
 export const Nav = () => {
@@ -181,12 +180,17 @@ export const Nav = () => {
                           <a onClick={(e) => e.preventDefault()}>
                             <Space>
                               <div className="flex items-center space-x-1 hover:text-white cursor-pointer">
-                              <img className=" rounded-full border-white " src={user ? user.image : admin.image} alt="Image" height="30px" width="30px" />
+                                <img
+                                  className=" rounded-full border-white "
+                                  src={user ? user.image : admin.image}
+                                  alt="Image"
+                                  height="30px"
+                                  width="30px"
+                                />
                                 {/* <FaRegCircleUser /> */}
                                 <b>{user ? user.firstName : admin.firstName}</b>
                               </div>
                               <DownOutlined />
-                              
                             </Space>
                           </a>
                         </Dropdown>
@@ -344,43 +348,3 @@ export const Nav = () => {
     </div>
   );
 };
-
-// {user &&
-// (
-//   <li>
-//     <div>
-//       <div>
-//         {user && (
-//           <Dropdown
-//             className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
-//             menu={{
-//               items,
-//             }}
-//           >
-//             <a onClick={(e) => e.preventDefault()}>
-//               <Space>
-//                 {/* User */}
-//                 <div
-//                   className="flex items-center space-x-1 hover:text-white cursor-pointer"
-//                   // onClick={GoToProfile}
-//                 >
-//                   <FaRegCircleUser />
-//                   <b>
-//                     {user ? user.firstName : admin.firstName}
-//                   </b>
-//                 </div>
-//                 <DownOutlined />
-//               </Space>
-//             </a>
-//           </Dropdown>
-//         )}
-//         <div
-//           id="dropdown"
-//           className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
-//         ></div>
-//       </div>
-//     </div>
-//   </li>
-// )}
-//
-//
