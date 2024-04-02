@@ -1,8 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Campaign, CampaignState, UpdatedCampaign } from "../Types/types";
+import { message } from "antd";
 
 const apiURL = "http://localhost:3000/campaigns";
+// const apiURL = "http://localhost:3000/campaignsManagement";
 
 export const fetchCampaigns = createAsyncThunk(
   "campaigns/fetchCampaigns",
@@ -23,8 +25,10 @@ export const addCampaign = createAsyncThunk(
 export const updateCampaign = createAsyncThunk(
   "campaigns/updateCampaign",
   async (updatedCampaign: UpdatedCampaign) => {
+    console.log("updated Campaign:", updatedCampaign.id);
+
     const response = await axios.put(
-      `apiURL/${updatedCampaign.id}`,
+      `${apiURL}/${updatedCampaign.id}`,
       updatedCampaign
     );
     return response.data;
@@ -64,6 +68,7 @@ const campaignSlice = createSlice({
       })
       .addCase(addCampaign.fulfilled, (state, action) => {
         state.list.push(action.payload);
+        message.success("Campaign Successfully Added");
       })
       .addCase(updateCampaign.fulfilled, (state, action) => {
         const updatedCampaign = action.payload;

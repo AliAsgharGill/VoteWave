@@ -8,6 +8,62 @@
       "email": "AliAsghar@gmail.com",
       "password": "sdfasdf21@SG",
       "image": "https://lh3.googleusercontent.com/-O6KL0nLbcQI/AAAAAAAAAAI/AAAAAAAAAAA/ALKGfkkeebSzPkQdZ3bTJrbO-_yXZ-5DnQ/photo.jpg?sz=46"
+    },
+    {
+      "id": "a62c",
+      "firstName": "Ali",
+      "secondName": "Asghar",
+      "email": "stylinalivlogs@gmail.com",
+      "password": "2321312sfaD@",
+      "image": "skksdlfjasf"
+    },
+    {
+      "id": "a577",
+      "firstName": "Real ",
+      "secondName": "Ali",
+      "email": "realali@gmail.com",
+      "password": "dask12@1F",
+      "image": "skldfj"
+    },
+    {
+      "id": "bbe3",
+      "firstName": "simple",
+      "secondName": "simple",
+      "email": "simple@gmail.com",
+      "password": "sdfS@#2",
+      "image": "dsklf"
+    },
+    {
+      "id": "59b7",
+      "firstName": "Ali",
+      "secondName": "Asghar",
+      "email": "SASDFstylinalivlogs@gmail.com",
+      "password": "DAFKLJAF@2Fd",
+      "image": "LKDFAJDKLFJKLADFJ"
+    },
+    {
+      "id": "f2cd",
+      "firstName": "Adnan",
+      "secondName": "Ali",
+      "email": "AdnanAli1@gmail.com",
+      "password": "AdnanAli1@",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrq8a6plyTZvi2bjCyHBnNKwahQzDOCze830QtQGD6jw&s"
+    },
+    {
+      "id": "9aaf",
+      "firstName": "Irfan",
+      "secondName": "Pathan",
+      "email": "irfanPathan@gmail.com",
+      "password": "As1@s1",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVhtFJc9v3hEBfhJiOhYMS_60ieEbiOjPJyxl8F2dIBw&s"
+    },
+    {
+      "id": "ae2a",
+      "firstName": "Aasma",
+      "secondName": "Ahmed",
+      "email": "aasmaahmed@gmail.com",
+      "password": "Aasm!2",
+      "image": "https://cdn.pixabay.com/photo/2017/01/30/23/52/female-2022387_1280.png"
     }
   ],
   "allowedUsers": [
@@ -18,17 +74,77 @@
     {
       "id": "3044",
       "email": "ali@gamil.com"
+    },
+    {
+      "id": "1a83",
+      "email": "AhmedGill@gmail.com"
+    },
+    {
+      "id": "b2ae",
+      "email": "realali@gmail.com"
+    },
+    {
+      "id": "6c6c",
+      "email": "simple@gmail.com"
+    },
+    {
+      "id": "1f3b",
+      "email": "irfanPathan@gmail.com"
     }
   ],
-  "candidates": [],
+  "candidates": [
+    {
+      "id": "fe95",
+      "candidateName": "dsfa",
+      "candidateSymbol": "dsfa",
+      "campaignID": "340f",
+      "votes": 0
+    },
+    {
+      "id": "9308",
+      "candidateName": "Second",
+      "candidateSymbol": "fakldf",
+      "campaignID": "340f",
+      "votes": 0
+    },
+    {
+      "id": "3fbc",
+      "candidateName": "JavaScript",
+      "candidateSymbol": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTg2Fy-vRSgOhWBWoMvVsmTrko9BVfNrhckcFowdlfJXA&s",
+      "campaignID": "8169",
+      "votes": 0
+    },
+    {
+      "id": "52b8",
+      "candidateName": "Ahmed",
+      "candidateSymbol": "Gill",
+      "campaignID": "8169",
+      "votes": 0
+    },
+    {
+      "id": "4389",
+      "candidateName": "Gul",
+      "candidateSymbol": "Ahmed",
+      "campaignID": "8169",
+      "votes": 0
+    }
+  ],
   "campaigns": [
     {
-      "id": "340f",
-      "name": "First Campaign",
-      "description": "First Campaign",
-      "image": "First Campaign link",
-      "startDate": "2024-04-01T02:39:03.400Z",
-      "endDate": "2024-04-25T19:00:00.000Z"
+      "id": "8169",
+      "name": "Programming Language",
+      "description": "Choose the best programming language",
+      "image": "https://www.netsolutions.com/insights/wp-content/uploads/2022/07/11-best-future-programming-languages.webp",
+      "startDate": "2024-04-01T10:28:38.200Z",
+      "endDate": "2026-05-27T19:00:00.000Z"
+    },
+    {
+      "id": "42a1",
+      "name": "Best Phone",
+      "description": "Choose the best phone.",
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0sGJCauHed2KieycDbCKAz9B5zLYbFZbf6PwQ0h2G3A&s",
+      "startDate": "2024-04-01T10:31:12.100Z",
+      "endDate": "2024-06-30T10:31:21.700Z"
     }
   ],
   "admins": [

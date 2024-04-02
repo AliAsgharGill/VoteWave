@@ -11,7 +11,6 @@
   font-weight: 500;
 }
 
-
 ::-webkit-scrollbar {
   width: 12px;
   z-index: -10;
@@ -21,15 +20,11 @@
   z-index: -10;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2D9596;
-  border-radius: 10px;
+  background: #222831;
+  /* border-radius: 10px; */
   z-index: -10;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #222831;
+  background: #2d9596;
   z-index: -10;
-}
-
-.antbtn:hover {
-  color: red;
 }
