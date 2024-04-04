@@ -37,6 +37,17 @@ export const updateCandidate = createAsyncThunk(
   }
 );
 
+export const updateCandidateVotes = createAsyncThunk(
+  "candidates/updateCandidateVotes",
+  async (participant) => {
+    const response = await axios.patch(
+      `http://localhost:3000/candidates/${participant.id}`,
+      { votes: participant.votes + 1 }
+    );
+    return response.data;
+  }
+);
+
 export const deleteCandidate = createAsyncThunk(
   "candidates/deleteCandidate",
   async (id: number) => {
@@ -74,6 +85,25 @@ const candidatesSlice = createSlice({
           state.list[existingCandidateIndex] = updatedCandidate;
         }
       })
+      .addCase(updateCandidateVotes.pending, (state) => {
+        state.status = "loading";
+        console.log("Loading Done");
+      })
+      .addCase(updateCandidateVotes.fulfilled, (state, action) => {
+        state.status = "idle";
+        state.list = state.list.map((candidate) =>
+          candidate.id === action.payload.id
+            ? { ...candidate, votes: action.payload.votes }
+            : candidate
+        );
+        // const updatedCandidate = action.payload;
+        // console.log("updatedCandidate", updatedCandidate);
+      })
+      .addCase(updateCandidateVotes.rejected, (state, action) => {
+        state.status = "idle";
+        state.error = action.error.message;
+        console.log("update vote rejected Done");
+      })
       .addCase(deleteCandidate.fulfilled, (state, action) => {
         const id = action.payload;
         state.list.filter((candidate) => candidate.id !== id);
@@ -89,4 +119,5 @@ export const candidatesSliceAction = {
   addCandidate,
   updateCandidate,
   deleteCandidate,
+  updateCandidateVotes,
 };

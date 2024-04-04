@@ -6,7 +6,10 @@ import { FaLink } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { campaignSliceActions } from "../../../Slices/campaignSlice";
-import { candidatesSliceAction } from "../../../Slices/CandidateSlice";
+import {
+  candidatesSliceAction,
+  fetchCandidates,
+} from "../../../Slices/CandidateSlice";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -22,6 +25,11 @@ const CampaignManagementPage = () => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   const admin = JSON.parse(localStorage.getItem("admin"));
+
+  useEffect(() => {
+    dispatch(candidatesSliceAction.fetchCandidates());
+    dispatch(campaignSliceActions.fetchCampaigns());
+  }, []);
 
   useEffect(() => {
     const fetchAdmins = async () => {
@@ -49,11 +57,13 @@ const CampaignManagementPage = () => {
   const campaigns = useSelector((state) => state.campaigns.list);
   // console.log("Campagins", campaigns);
   const candidates = useSelector((state) => state.candidates.list);
+  console.log("Candidates", candidates);
 
   const [selectedCampaign, setSelectedCampaign] = useState(null);
   const [participants, setParticipants] = useState(null);
 
   const manageCandidates = (campaign) => {
+    dispatch(campaignSliceActions.fetchCampaigns());
     const campaignExist = campaigns.find((camp) => camp.id === campaign.id);
     console.log("Campaign Exist:", campaignExist);
 
@@ -61,11 +71,11 @@ const CampaignManagementPage = () => {
       (can) => can.campaignID === campaignExist.id
     );
     setParticipants(contestants);
-    if (campaignExist) {
-      const data = campaignExist.candidates;
-      setSelectedCampaign(data);
-      setView(true);
-    }
+    // if (campaignExist) {
+    //   const data = campaignExist.candidates;
+    //   setSelectedCampaign(data);
+    //   setView(true);
+    // }
     console.log("contestants", contestants);
 
     if (campaignExist) {
@@ -75,7 +85,8 @@ const CampaignManagementPage = () => {
     }
   };
 
-  const handleDeleteCampaign = (id) => {
+  const handleDeleteCampaign = (id: number) => {
+    dispatch(campaignSliceActions.fetchCampaigns());
     Modal.confirm({
       title: "Confirm Delete",
       content: "Are you sure you want delete?",
@@ -95,9 +106,10 @@ const CampaignManagementPage = () => {
     });
   };
 
-  useEffect(() => {
-    dispatch(campaignSliceActions.fetchCampaigns());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(campaignSliceActions.fetchCampaigns());
+
+  // }, [dispatch]);
 
   const onFinish = (values) => {
     console.log("Success:", values);

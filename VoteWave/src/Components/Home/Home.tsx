@@ -1,10 +1,17 @@
-import React from "react";
+import { Header } from "./Header";
+import { Step } from "./VotingStep";
+import Item from "antd/es/list/Item";
+import { Faq } from "./FAQ";
+import { Content } from "./Content";
 
 const Home = () => {
   return (
     <>
-      <div className="min-h-80">
-        <h1>Home Page</h1>
+      <div className="">
+        <Header />
+        <Step />
+        <Content />
+        <Faq />
       </div>
     </>
   );

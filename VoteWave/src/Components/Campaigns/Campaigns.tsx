@@ -1,6 +1,8 @@
 import React from "react";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
+import { CampaignContent } from "./campaignHeader";
+import CampaignsCard from "./CampaignsCard";
 
 const Campaigns = () => {
   const navigate = useNavigate();
@@ -17,7 +19,16 @@ const Campaigns = () => {
     }
   }, [admin, navigate, user]);
 
-  return <>{!user || !admin ? <h1>Campaigns</h1> : null}</>;
+  return (
+    <>
+      {!user || !admin ? (
+        <div>
+          <CampaignContent />
+          <CampaignsCard />
+        </div>
+      ) : null}
+    </>
+  );
 };
 
 export default Campaigns;
