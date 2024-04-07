@@ -1,6 +1,101 @@
 import { Link } from "react-router-dom";
+import { Doughnut } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  ArcElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { useDispatch, useSelector } from "react-redux";
+import { Candidate } from "../../Types/types";
+import { useEffect } from "react";
+import { candidatesSliceAction } from "../../Slices/CandidateSlice";
+// import faker from 'faker';
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export const Header = () => {
+  const dispatch = useDispatch();
+  const userString = localStorage.getItem("user");
+  const user = userString ? JSON.parse(userString) : null;
+
+  const adminString = localStorage.getItem("admin");
+  const admin = adminString ? JSON.parse(adminString) : null;
+
+  useEffect(() => {
+    dispatch(candidatesSliceAction.fetchCandidates());
+  }, []);
+  const candidates = useSelector((state) => state.candidates.list);
+  // graph start
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Running Campaigns",
+      },
+    },
+  };
+
+  const data = {
+    labels: candidates.map((candidate: Candidate) => candidate.candidateName),
+
+    datasets: [
+      {
+        label: "Votes",
+        data: candidates.map((candidate: Candidate) => candidate.votes),
+        backgroundColor: [
+          "#2D9596",
+          "#3CA6A7",
+          "#4CAFB0",
+          "#5DB9BB",
+          "#6DC2C5",
+          "#7ECBCF",
+          "#8ED4D8",
+          "#9EDDE1",
+          "#AFE7EB",
+          "#BFEFF4",
+          "#2D9596",
+          "rgba(75, 192, 192, 1)",
+          "rgba(64, 239, 255, 0.2)",
+          "rgba(102, 207, 255, 0.2)",
+          "rgba(20, 124, 229, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(86, 103, 255, 0.2)",
+          "rgba(10, 130, 130, 0.2)",
+        ],
+        borderColor: [
+          "rgba(255, 206, 86, 1)",
+          "rgba(54, 162, 235, 1)",
+          "#4b82c0",
+          "rgba(255, 159, 64, 1)",
+          "rgba(153, 102, 255, 1)",
+          "rgba(255, 99, 132, 1)",
+          "#2D9596",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  // graph end
+
   return (
     <div className="relative">
       <img
@@ -47,13 +142,21 @@ export const Header = () => {
             </div>
             <div className="w-full max-w-xl xl:px-8 xl:w-5/12">
               <div className="bg-white rounded shadow-2xl p-7 sm:p-10">
-                <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
-                  Sign up for updates
+                <h3 className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl text-primaryColor-900">
+                  Running Campaigns Result
                 </h3>
                 {/* Paste Charts here */}
-                <p className="text-xs text-gray-600 sm:text-sm">
-                  We respect your privacy. We do respect of your opinion.
-                </p>
+                {user || admin ? (
+                  <Doughnut data={data} options={options} />
+                ) : (
+                  <Link
+                    to={"/login/user"}
+                    className="mb-4 text-xl font-semibold sm:text-center sm:mb-6 sm:text-2xl justify-center "
+                  >
+                    {" "}
+                    <div className="text-primaryColor-900">Sign In To See</div>
+                  </Link>
+                )}
               </div>
             </div>
           </div>

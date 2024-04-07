@@ -1,8 +1,9 @@
 // candidate Interfaces
 export interface Candidate {
   id: number;
-  name: string;
-  party: string;
+  candidateName: string;  
+  candidateSymbol: string;  
+  campaignID: number;
   votes: number;
 }
 
@@ -18,6 +19,8 @@ export interface Campaign {
   name: string;
   description: string;
   image: string;
+  startDate:string;
+  endDate:string;
 }
 
 export interface CampaignState {
@@ -56,6 +59,6 @@ export interface Tokens {
 export interface TokensState {
   tokens: Tokens[];
   loading: boolean;
-  error: null | any;
+  error: null | unknown;
   cleared: boolean;
 }

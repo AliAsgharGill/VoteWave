@@ -7,17 +7,20 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { MdHowToVote } from "react-icons/md";
 import { candidatesSliceAction } from "../../Slices/CandidateSlice";
+import { Campaign, Candidate } from "../../Types/types";
 
 const CampaignsCard = () => {
   const { Meta } = Card;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const [isUser, setIsUser] = useState(false);
+  const userString = localStorage.getItem("user");
+  const user = userString ? JSON.parse(userString) : null;
 
-  const user = JSON.parse(localStorage.getItem("user"));
-  const admin = JSON.parse(localStorage.getItem("admin"));
+  const adminString = localStorage.getItem("admin");
+  const admin = adminString ? JSON.parse(adminString) : null;
 
+  const [isUser, setIsUser] = useState(false);
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -27,6 +30,7 @@ const CampaignsCard = () => {
         const adminResponse = await axios.get(
           `http://localhost:3000/admins?email=${user.email}&password=${user.password}`
         );
+        
         setIsUser(!!userResponse.data.length || !!adminResponse.data.length);
       } catch (error) {
         console.log("Error Fetching Users", error);
@@ -55,7 +59,7 @@ const CampaignsCard = () => {
       title: "Alert Vote",
       content:
         "Are you sure you want to cast your vote? Once you confirm, you won't be able to cast your vote again.",
-      okButtonProps: { style: { backgroundColor: "#F09A60" } },
+      okButtonProps: { style: { backgroundColor: "#2D9596" } },
       onOk() {
         handleMangeCampaign(campaign);
       },
@@ -63,16 +67,18 @@ const CampaignsCard = () => {
     });
   };
 
-  const campaigns = useSelector((state) => state.campaigns.list);
-  const dynamicCandidates = useSelector((state) => state.candidates.list);
+  const campaigns:Campaign = useSelector((state) => state.campaigns.list);
+  const candidates = useSelector((state) => state.candidates.list);
 
   const [view, setView] = useState(false);
   const [participants, setParticipants] = useState(null);
 
-  const handleMangeCampaign = (campaign) => {
-    const campaignExist = campaigns.find((camp) => camp.id === campaign.id);
-    const contestants = dynamicCandidates.filter(
-      (can) => can.campaignID === campaignExist.id
+  const handleMangeCampaign = (campaign: Campaign) => {
+    const campaignExist = campaigns.find(
+      (camp: Campaign) => camp.id === campaign.id
+    );
+    const contestants = candidates.filter(
+      (can: Campaign) => can.campaignID === campaignExist.id
     );
     setParticipants(contestants);
     if (campaignExist) {
@@ -86,7 +92,7 @@ const CampaignsCard = () => {
     }
   };
 
-  const handleVoteClick = (participant) => {
+  const handleVoteClick = (participant: Candidate) => {
     dispatch(candidatesSliceAction.updateCandidateVotes(participant));
     message.success("Your Vote Counted Successfully");
     setView(false);
@@ -136,7 +142,7 @@ const CampaignsCard = () => {
             Campaigns
           </h1>
           <div className="p-5 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
-            {campaigns.map((campaign) => {
+            {campaigns.map((campaign: Campaign) => {
               // here calculate and hide the campaign if time is not started or time end
               const startDate = new Date(campaign.startDate);
               const endDate = new Date(campaign.endDate);
@@ -152,7 +158,7 @@ const CampaignsCard = () => {
                 <Card
                   key={campaign.id}
                   style={{ width: 300 }}
-                  className="outline outline-gray-100 outline-1 hover:-translate-y-2 duration-700 transition"
+                  className="outline outline-gray-200 outline-1 hover:-translate-y-2 duration-700 transition"
                   hoverable
                   cover={
                     <img
@@ -168,7 +174,7 @@ const CampaignsCard = () => {
                       }}
                       type="primary"
                       key="buttonOne"
-                      className="bg-[#F09A3E]"
+                      className="bg-[#2D9596]"
                       icon={<ArrowRightOutlined />}
                       disabled={disabledCampaigns.includes(campaign.id)}
                     >
@@ -180,7 +186,6 @@ const CampaignsCard = () => {
                     style={{ textAlign: "justify", height: "120px" }}
                     title={campaign.name}
                     description={campaign.description}
-                    endDate={campaign.endDate}
                   />
                   <div className="font-bold my-4">
                     <div>Campaign End In</div>
@@ -221,6 +226,7 @@ const CampaignsCard = () => {
                       />
                     </div>,
                   ]}
+                  onClick={() => handleVoteClick(participant)}
                   hoverable={true}
                 >
                   <div

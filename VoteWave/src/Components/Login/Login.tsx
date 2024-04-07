@@ -1,3 +1,4 @@
+import React from "react";
 import { Form, Input, Button, message } from "antd";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { FaRegUserCircle } from "react-icons/fa";
@@ -15,6 +16,20 @@ interface FromValues {
 const Login = ({ type }: { type: string }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const userString = localStorage.getItem("user");
+  const user = userString ? JSON.parse(userString) : null;
+
+  const adminString = localStorage.getItem("admin");
+  const admin = adminString ? JSON.parse(adminString) : null;
+
+  React.useEffect(() => {
+    if (admin || user) {
+      message.warning("Please Logout First To Login Again! ");
+      navigate("/");
+    }
+  }, [admin, navigate, user]);
+
   const onFinish = async (values: FromValues) => {
     // console.log("Values:", values);
     try {

@@ -6,15 +6,14 @@ import { FaLink } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { campaignSliceActions } from "../../../Slices/campaignSlice";
-import {
-  candidatesSliceAction,
-  fetchCandidates,
-} from "../../../Slices/CandidateSlice";
+import { candidatesSliceAction } from "../../../Slices/CandidateSlice";
 import {
   DeleteOutlined,
   EditOutlined,
   IdcardOutlined,
 } from "@ant-design/icons";
+import { Campaign, Candidate, CandidatesState } from "../../../Types/types";
+import { RootState } from "@reduxjs/toolkit/";
 
 const CampaignManagementPage = () => {
   const { Meta } = Card;
@@ -24,7 +23,10 @@ const CampaignManagementPage = () => {
 
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const admin = JSON.parse(localStorage.getItem("admin"));
+  const adminString = localStorage.getItem("admin");
+  const admin = adminString ? JSON.parse(adminString) : null;
+
+  // const admin = JSON.parse(localStorage.getItem("admin"));
 
   useEffect(() => {
     dispatch(candidatesSliceAction.fetchCandidates());
@@ -54,17 +56,19 @@ const CampaignManagementPage = () => {
   const [view, setView] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [campaignID, setCampaignID] = useState(null);
-  const campaigns = useSelector((state) => state.campaigns.list);
+  const campaigns = useSelector((state: RootState) => state.campaigns.list);
   // console.log("Campagins", campaigns);
-  const candidates = useSelector((state) => state.candidates.list);
-  console.log("Candidates", candidates);
+  const candidates = useSelector((state: RootState) => state.candidates.list);
+  // console.log("Candidates", candidates);
 
   const [selectedCampaign, setSelectedCampaign] = useState(null);
   const [participants, setParticipants] = useState(null);
 
-  const manageCandidates = (campaign) => {
+  const manageCandidates = (campaign: Campaign) => {
     dispatch(campaignSliceActions.fetchCampaigns());
-    const campaignExist = campaigns.find((camp) => camp.id === campaign.id);
+    const campaignExist = campaigns.find(
+      (camp: Campaign) => camp.id === campaign.id
+    );
     console.log("Campaign Exist:", campaignExist);
 
     const contestants = candidates.filter(
@@ -89,16 +93,16 @@ const CampaignManagementPage = () => {
     dispatch(campaignSliceActions.fetchCampaigns());
     Modal.confirm({
       title: "Confirm Delete",
-      content: "Are you sure you want delete?",
+      content: "Are you sure you want delete campaign?",
       okButtonProps: { style: { backgroundColor: "#F09A60" } },
       onOk() {
         dispatch(campaignSliceActions.deleteCampaign(id));
-
+        dispatch(campaignSliceActions.fetchCampaigns());
         // Delete candidates with the same campaignID
         const candidatesToDelete = candidates.filter(
-          (candidate) => candidate.campaignID === id
+          (candidate: Candidate) => candidate.campaignID === id
         );
-        candidatesToDelete.forEach((candidate) => {
+        candidatesToDelete.forEach((candidate: Candidate) => {
           dispatch(candidatesSliceAction.deleteCandidate(candidate.id));
         });
       },
@@ -106,10 +110,10 @@ const CampaignManagementPage = () => {
     });
   };
 
-  // useEffect(() => {
-  //   dispatch(campaignSliceActions.fetchCampaigns());
-
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(campaignSliceActions.fetchCampaigns());
+    dispatch(candidatesSliceAction.fetchCandidates());
+  }, [dispatch]);
 
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -120,7 +124,7 @@ const CampaignManagementPage = () => {
     console.log("Failed:", errorInfo);
   };
 
-  const onFinishFrom = async (values) => {
+  const onFinishFrom = async (values: Candidate) => {
     console.log("Success:", values);
     formRef.current.resetFields();
     dispatch(
@@ -130,16 +134,17 @@ const CampaignManagementPage = () => {
         votes: 0,
       })
     );
+    dispatch(candidatesSliceAction.fetchCandidates());
     setIsModalOpen(false);
     message.success("Candidate Added Successfully!");
   };
 
-  const onFinishEdit = async (values) => {
+  const onFinishEdit = async (values: Candidate) => {
     console.log("Values", values);
     dispatch(candidatesSliceAction.updateCandidate(values));
   };
 
-  const onFinishCampaignEdit = async (values) => {
+  const onFinishCampaignEdit = async (values: Campaign) => {
     console.log("Values", values);
     dispatch(campaignSliceActions.updateCampaign(values));
     setCampaignView(false);
@@ -150,7 +155,7 @@ const CampaignManagementPage = () => {
     formRef.current.resetFields();
   };
 
-  const handleAddCandidate = (campaign) => {
+  const handleAddCandidate = (campaign: Candidate) => {
     console.log("Campaign Is:", campaign);
     setIsModalOpen(true);
   };
@@ -176,7 +181,9 @@ const CampaignManagementPage = () => {
   const [campaignView, setCampaignView] = useState(false);
 
   const handleEdit = (id) => {
-    const findCandidate = candidates.find((candidate) => candidate.id === id);
+    const findCandidate = candidates.find(
+      (candidate: CandidatesState) => candidate.id === id
+    );
     if (findCandidate) {
       setEdit(findCandidate);
       setViewModal(true);
@@ -204,10 +211,11 @@ const CampaignManagementPage = () => {
   const handleDelete = (id: number | string) => {
     Modal.confirm({
       title: "Confirm Delete",
-      content: "Are you sure you want delete?",
-      okButtonProps: { style: { backgroundColor: "#F09A60" } },
+      content: "Are you sure you want delete candidate?",
+      okButtonProps: { style: { backgroundColor: "#2D9596" } },
       onOk() {
         dispatch(candidatesSliceAction.deleteCandidate(id));
+        dispatch(candidatesSliceAction.fetchCandidates());
       },
       onCancel() {},
     });
@@ -215,9 +223,9 @@ const CampaignManagementPage = () => {
   return (
     <>
       {isAdmin && (
-        <div>
+        <div className="m-10">
           <div className=" mt-20 sm:mt-10">
-            <h2 className="font-bold text-3xl mx-auto justify-center text-primaryColor-900">
+            <h2 className="font-bold text-3xl mx-auto justify-center text-primaryColor-900 text-center  my-5">
               Campaign Management
             </h2>
             {/* Fetching Existing campaigns */}
@@ -248,12 +256,12 @@ const CampaignManagementPage = () => {
                           style={{ color: "skyblue" }}
                         />
                         ,
-                        <EditOutlined
+                        {/* <EditOutlined
                           key="edit"
                           style={{ color: "blue" }}
                           onClick={() => handleEditCampaign(campaign)}
                         />
-                        ,
+                        , */}
                         <DeleteOutlined
                           onClick={() => handleDeleteCampaign(campaign.id)}
                           key="delete"
@@ -343,7 +351,6 @@ const CampaignManagementPage = () => {
           </Modal>
           {/* Modal For Adding Candidate */}
           <Modal
-            Modal
             open={isModalOpen}
             title="Add Candidate/Product"
             onCancel={() => setIsModalOpen(false)}
@@ -381,10 +388,10 @@ const CampaignManagementPage = () => {
                     ),
                   },
                   {
-                    max: 15,
+                    max: 25,
                     message: (
                       <span className="font-bold text-red-500">
-                        Keep Less than 15 characters!
+                        Keep Less than 25 characters!
                       </span>
                     ),
                   },

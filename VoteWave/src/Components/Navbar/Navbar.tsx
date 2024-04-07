@@ -56,10 +56,6 @@ export const Nav = () => {
     });
   };
 
-  const GoToProfile = () => {
-    navigate("/user");
-  };
-
   const userItems = [
     {
       label: <NavLink to="/user">Profile</NavLink>,
@@ -160,7 +156,7 @@ export const Nav = () => {
                     aria-label="Sign up"
                     title="Sign up"
                   >
-                    Sign up
+                    Signup
                   </Link>
                 </li>
               </>
@@ -206,7 +202,7 @@ export const Nav = () => {
             )}
           </ul>
 
-          <div className="lg:hidden">
+          <div className="lg:hidden z-20">
             <button
               aria-label="Open Menu"
               title="Open Menu"
@@ -230,7 +226,7 @@ export const Nav = () => {
             </button>
             {isMenuOpen && (
               <div className="absolute top-0 left-0 w-full">
-                <div className="p-5 bg-white border rounded shadow-sm">
+                <div className="p-5 bg-primaryColor-900  border rounded shadow-sm">
                   <div className="flex items-center justify-between mb-4">
                     <div>
                       <NavLink
@@ -239,24 +235,11 @@ export const Nav = () => {
                         title="Vote.Wave"
                         className="inline-flex items-center"
                       >
-                        <svg
-                          className="w-8 text-deep-purple-accent-400"
-                          viewBox="0 0 24 24"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeMiterlimit="10"
-                          stroke="currentColor"
-                          fill="none"
-                        >
-                          <rect x="3" y="1" width="7" height="12" />
-                          <rect x="3" y="17" width="7" height="6" />
-                          <rect x="14" y="1" width="7" height="6" />
-                          <rect x="14" y="11" width="7" height="12" />
-                        </svg>
-                        <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-                          Company
-                        </span>
+                        <img
+                          src="\Images\VoteWaveT.png"
+                          alt="Vote.Wave"
+                          width="160px"
+                        />
                       </NavLink>
                     </div>
                     <div>
@@ -275,68 +258,116 @@ export const Nav = () => {
                       </button>
                     </div>
                   </div>
+
                   <nav>
-                    <ul className="space-y-4">
+                    {/* login singup  or user name and contorls */}
+                    <ul className="flex items-center space-x-8 lg:flex">
+                      {!user && !admin ? (
+                        <>
+                          <li>
+                            <Link
+                              to="/login/user"
+                              className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+                              aria-label="Login"
+                              title="Login"
+                            >
+                              Login
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="/signup/user"
+                              className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+                              aria-label="Sign up"
+                              title="Sign up"
+                            >
+                              Sign up
+                            </Link>
+                          </li>
+                        </>
+                      ) : (
+                        <>
+                          {user || admin ? (
+                            <li>
+                              <div>
+                                <div>
+                                  <Dropdown
+                                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+                                    // className="flex items-center space-x-1 hover:text-white cursor-pointer"
+                                    menu={{
+                                      items,
+                                    }}
+                                  >
+                                    <a onClick={(e) => e.preventDefault()}>
+                                      <Space>
+                                        <div className="flex items-center space-x-1 hover:text-white cursor-pointer">
+                                          <img
+                                            className=" rounded-full border-white "
+                                            src={
+                                              user ? user.image : admin.image
+                                            }
+                                            alt="Image"
+                                            height="30px"
+                                            width="30px"
+                                          />
+                                          {/* <FaRegCircleUser /> */}
+                                          <b>
+                                            {user
+                                              ? user.firstName
+                                              : admin.firstName}
+                                          </b>
+                                        </div>
+                                        <DownOutlined />
+                                      </Space>
+                                    </a>
+                                  </Dropdown>
+                                  <div
+                                    id="dropdown"
+                                    className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+                                  ></div>
+                                </div>
+                              </div>
+                            </li>
+                          ) : null}
+                        </>
+                      )}
+                    </ul>
+                    {/* pages navigation */}
+                    <ul className="space-y-4 mt-10">
                       <li>
                         <NavLink
                           to="/"
-                          aria-label="Our product"
-                          title="Our product"
+                          aria-label="Home"
+                          title="Home"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          Home
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          to="/Campaigns"
+                          onClick={() => setIsMenuOpen(false)}
+                          aria-label="Campaigns"
+                          title="Campaigns"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                         >
-                          Product
+                          Campaigns
                         </NavLink>
                       </li>
                       <li>
                         <NavLink
-                          to="/"
-                          aria-label="Our product"
-                          title="Our product"
+                          to="/result"
+                          onClick={() => setIsMenuOpen(false)}
+                          aria-label="Result"
+                          title="Result"
                           className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                         >
-                          Features
+                          Result
                         </NavLink>
                       </li>
-                      <li>
-                        <NavLink
-                          to="/"
-                          aria-label="Product pricing"
-                          title="Product pricing"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
-                          Pricing
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/"
-                          aria-label="About us"
-                          title="About us"
-                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
-                          About us
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/"
-                          className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                          aria-label="Login"
-                          title="Login"
-                        >
-                          Login
-                        </NavLink>
-                      </li>
-                      <li>
-                        <NavLink
-                          to="/"
-                          className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                          aria-label="Sign up"
-                          title="Sign up"
-                        >
-                          Sign up
-                        </NavLink>
-                      </li>
+                                            
                     </ul>
                   </nav>
                 </div>

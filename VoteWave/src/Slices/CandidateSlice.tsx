@@ -39,7 +39,7 @@ export const updateCandidate = createAsyncThunk(
 
 export const updateCandidateVotes = createAsyncThunk(
   "candidates/updateCandidateVotes",
-  async (participant) => {
+  async (participant: Candidate) => {
     const response = await axios.patch(
       `http://localhost:3000/candidates/${participant.id}`,
       { votes: participant.votes + 1 }
@@ -87,7 +87,6 @@ const candidatesSlice = createSlice({
       })
       .addCase(updateCandidateVotes.pending, (state) => {
         state.status = "loading";
-        console.log("Loading Done");
       })
       .addCase(updateCandidateVotes.fulfilled, (state, action) => {
         state.status = "idle";
@@ -96,12 +95,10 @@ const candidatesSlice = createSlice({
             ? { ...candidate, votes: action.payload.votes }
             : candidate
         );
-        // const updatedCandidate = action.payload;
-        // console.log("updatedCandidate", updatedCandidate);
       })
       .addCase(updateCandidateVotes.rejected, (state, action) => {
         state.status = "idle";
-        state.error = action.error.message;
+        state.error = action.error.message || null;
         console.log("update vote rejected Done");
       })
       .addCase(deleteCandidate.fulfilled, (state, action) => {

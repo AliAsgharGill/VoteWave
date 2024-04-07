@@ -81,7 +81,7 @@ const campaignSlice = createSlice({
       })
       .addCase(deleteCampaign.fulfilled, (state, action) => {
         const id = action.payload;
-        state.list.filter((campaign) => campaign.id !== id);
+        state.list = state.list.filter((campaign) => campaign.id !== id);
       });
   },
 });
