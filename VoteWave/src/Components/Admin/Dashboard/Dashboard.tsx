@@ -19,6 +19,7 @@ import { allowedUserSliceActions } from "../../../Slices/allowedUsersSlice";
 import { deleteAllTokens } from "../../../Slices/tokenSlice";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { campaignSliceActions } from "../../../Slices/campaignSlice";
+import { blue } from "@mui/material/colors";
 
 type FieldType = {
   name?: string;
@@ -102,7 +103,7 @@ const Dashboard: React.FC = () => {
     Modal.confirm({
       title: "Confirm Clear",
       content: "You Will Logout!",
-      okButtonProps: { style: { backgroundColor: "#F09A60" } },
+      okButtonProps: { style: { backgroundColor: "#2D9596" } },
       onOk() {
         localStorage.clear();
         navigate("/login/user");
@@ -152,7 +153,7 @@ const Dashboard: React.FC = () => {
         <div className="min-h-screen">
           <div className="grid sm:grid-cols-2 md:grid-cols-3 place-items-center gap-10 my-16 p-5">
             <Button
-              className=" hover-button w-full font-bold p-10 bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline  text-lg md:text-xl = inline-flex items-center justify-center h-12 px-6 tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+              className=" hover:-translate-y-1  duration-500  hover-button w-full font-bold p-10 bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline  text-lg md:text-xl = inline-flex items-center justify-center h-12 px-6 tracking-wide text-white transition rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
               onClick={showModal}
               style={{
                 backgroundColor: "#31363F",
@@ -173,7 +174,7 @@ const Dashboard: React.FC = () => {
             <Button
               type=""
               onClick={() => navigate("/campaignsManagement")}
-              className=" hover-button w-full font-bold p-10 bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline  text-lg md:text-xl = inline-flex items-center justify-center h-12 px-6 tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+              className=" hover:-translate-y-1  duration-500  hover-button w-full font-bold p-10 bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline  text-lg md:text-xl = inline-flex items-center justify-center h-12 px-6 tracking-wide text-white transition rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
               style={{
                 backgroundColor: "#31363F",
               }}
@@ -192,7 +193,7 @@ const Dashboard: React.FC = () => {
             </Button>
 
             <Button
-              className=" hoverColor w-full font-bold p-10 bg-deep-purple-accent-400 text-lg md:text-xl inline-flex items-center justify-center h-12 px-6 tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 focus:outline-none hover:bg-deep-purple-accent-700"
+              className=" hover:-translate-y-1  duration-500  hover-button w-full font-bold p-10 bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline  text-lg md:text-xl = inline-flex items-center justify-center h-12 px-6 tracking-wide text-white transition rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
               onClick={() => addEmail()}
               style={{
                 backgroundColor: "#31363F",
@@ -212,7 +213,7 @@ const Dashboard: React.FC = () => {
             </Button>
 
             <Button
-              className=" hover-button w-full font-bold p-10 bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline  text-lg md:text-xl = inline-flex items-center justify-center h-12 px-6 tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+              className=" hover:-translate-y-1  duration-500  hover-button w-full font-bold p-10 bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline  text-lg md:text-xl = inline-flex items-center justify-center h-12 px-6 tracking-wide text-white transition rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
               onClick={() => clearLocalStorage()}
               style={{
                 backgroundColor: "#31363F",
@@ -234,7 +235,7 @@ const Dashboard: React.FC = () => {
             <Button
               type=""
               onClick={generateToken}
-              className=" hover-button w-full font-bold p-10 bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline  text-lg md:text-xl = inline-flex items-center justify-center h-12 px-6 tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+              className=" hover:-translate-y-1  duration-500  hover-button w-full font-bold p-10 bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline  text-lg md:text-xl = inline-flex items-center justify-center h-12 px-6 tracking-wide text-white transition rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
               style={{
                 backgroundColor: "#31363F",
               }}
@@ -254,7 +255,7 @@ const Dashboard: React.FC = () => {
             <Button
               type=""
               onClick={clearTokens}
-              className=" hover-button w-full font-bold p-10 bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline  text-lg md:text-xl = inline-flex items-center justify-center h-12 px-6 tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+              className=" hover:-translate-y-1  duration-500  hover-button w-full font-bold p-10 bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline  text-lg md:text-xl = inline-flex items-center justify-center h-12 px-6 tracking-wide text-white transition rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
               style={{
                 backgroundColor: "#31363F",
               }}
@@ -283,6 +284,7 @@ const Dashboard: React.FC = () => {
               className="p-2"
             >
               <Form
+              
                 name="Campaign"
                 ref={formRef}
                 labelCol={{ span: 8 }}
@@ -295,12 +297,12 @@ const Dashboard: React.FC = () => {
               >
                 <Form.Item<FieldType>
                   label="Campaign Name"
-                  name="name"
+                  name="name"                
                   rules={[
                     { required: true, message: "Please write campaign name!" },
                   ]}
                 >
-                  <Input />
+                  <Input autoFocus />
                 </Form.Item>
 
                 <Form.Item<FieldType>
@@ -348,11 +350,18 @@ const Dashboard: React.FC = () => {
 
                 <Form.Item
                   wrapperCol={{
-                    // offset: 8,
+                    offset: 8,
                     span: 16,
                   }}
+                  onMouseEnter={(e) =>
+                      (e.target.style.backgroundColor = "#055F6D")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.target.style.backgroundColor = "#31363F")
+                    }
                 >
                   <Button
+                    
                     type="primary"
                     htmlType="submit"
                     className="inline-flex items-center justify-center  w-full px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
@@ -374,13 +383,15 @@ const Dashboard: React.FC = () => {
               <Form
                 ref={formRef}
                 name="basic"
-                labelCol={{
-                  span: 10,
-                }}
+                labelCol={
+                  {
+                    // span: 10,
+                  }
+                }
                 wrapperCol={{
+                  offset: 1,
                   span: 16,
                 }}
-                className=" "
                 initialValues={{
                   remember: true,
                 }}
@@ -391,6 +402,7 @@ const Dashboard: React.FC = () => {
                 <Form.Item
                   label="Email"
                   name="email"
+                  // className="w-full"
                   rules={[
                     {
                       required: true,
@@ -402,13 +414,20 @@ const Dashboard: React.FC = () => {
                 </Form.Item>
                 <Form.Item
                   wrapperCol={{
+                    offset: 4,
                     span: 16,
                   }}
                 >
                   <Button
                     type="primary"
                     htmlType="submit"
-                    className="bg-secondaryColor-900 w-full hover-button"
+                    className="bg-secondaryColor-900 w-full hover-button "
+                    onMouseEnter={(e) =>
+                      (e.target.style.backgroundColor = "#055F6D")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.target.style.backgroundColor = "#31363F")
+                    }
                   >
                     Allow User
                   </Button>

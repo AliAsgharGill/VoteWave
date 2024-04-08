@@ -13,7 +13,7 @@ import {
   IdcardOutlined,
 } from "@ant-design/icons";
 import { Campaign, Candidate, CandidatesState } from "../../../Types/types";
-import { RootState } from "@reduxjs/toolkit/";
+import { RootState } from "@reduxjs/toolkit";
 
 const CampaignManagementPage = () => {
   const { Meta } = Card;
@@ -180,7 +180,7 @@ const CampaignManagementPage = () => {
   };
   const [campaignView, setCampaignView] = useState(false);
 
-  const handleEdit = (id) => {
+  const handleEdit = (id:number) => {
     const findCandidate = candidates.find(
       (candidate: CandidatesState) => candidate.id === id
     );

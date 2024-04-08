@@ -1,3 +1,4 @@
+import React from 'react'
 import { Form, Input, Button, Upload, message } from "antd";
 import { UploadOutlined } from "@ant-design/icons";
 import { RiLockPasswordFill, RiUserFill } from "react-icons/ri";
@@ -22,6 +23,19 @@ const Signup = ({ type }: { type: string }) => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const userString = localStorage.getItem("user");
+  const user = userString ? JSON.parse(userString) : null;
+
+  const adminString = localStorage.getItem("admin");
+  const admin = adminString ? JSON.parse(adminString) : null;
+
+  React.useEffect(() => {
+    if (admin || user) {
+      message.warning("Please Logout First To Get Register! ");
+      navigate("/");
+    }
+  }, [admin, navigate, user]);
 
   const params = new URLSearchParams(window.location.search);
   const token = params.get("token");

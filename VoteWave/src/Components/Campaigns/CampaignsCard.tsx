@@ -9,6 +9,8 @@ import { MdHowToVote } from "react-icons/md";
 import { candidatesSliceAction } from "../../Slices/CandidateSlice";
 import { Campaign, Candidate } from "../../Types/types";
 
+
+
 const CampaignsCard = () => {
   const { Meta } = Card;
   const dispatch = useDispatch();
@@ -30,7 +32,7 @@ const CampaignsCard = () => {
         const adminResponse = await axios.get(
           `http://localhost:3000/admins?email=${user.email}&password=${user.password}`
         );
-        
+
         setIsUser(!!userResponse.data.length || !!adminResponse.data.length);
       } catch (error) {
         console.log("Error Fetching Users", error);
@@ -40,8 +42,8 @@ const CampaignsCard = () => {
     if (user || admin) {
       fetchUsers();
     } else {
-      navigate("/login/user");
-      message.warning("Please Login First!");
+      navigate("/login/user");  
+      // message.warning("Please Login First!");
     }
   }, [user, navigate]);
 
@@ -54,7 +56,7 @@ const CampaignsCard = () => {
     return storedDisabledCampaigns ? JSON.parse(storedDisabledCampaigns) : [];
   });
 
-  const handleVotingClick = (campaign) => {
+  const handleVotingClick = (campaign: Campaign) => {
     Modal.confirm({
       title: "Alert Vote",
       content:
@@ -67,7 +69,7 @@ const CampaignsCard = () => {
     });
   };
 
-  const campaigns:Campaign = useSelector((state) => state.campaigns.list);
+  const campaigns: Campaign = useSelector((state) => state.campaigns.list);
   const candidates = useSelector((state) => state.candidates.list);
 
   const [view, setView] = useState(false);
@@ -77,7 +79,7 @@ const CampaignsCard = () => {
     const campaignExist = campaigns.find(
       (camp: Campaign) => camp.id === campaign.id
     );
-    const contestants = candidates.filter(
+    const contestants: Candidate = candidates.filter(
       (can: Campaign) => can.campaignID === campaignExist.id
     );
     setParticipants(contestants);
@@ -96,7 +98,6 @@ const CampaignsCard = () => {
     dispatch(candidatesSliceAction.updateCandidateVotes(participant));
     message.success("Your Vote Counted Successfully");
     setView(false);
-    // navigate('/');
   };
 
   useEffect(() => {
@@ -107,7 +108,7 @@ const CampaignsCard = () => {
     setView(false);
   };
 
-  const calculateRemainingTime = (endDate) => {
+  const calculateRemainingTime = (endDate: string) => {
     const endDateTime = new Date(endDate).getTime();
     const currentDateTime = new Date().getTime();
     const diff = endDateTime - currentDateTime;
@@ -146,12 +147,12 @@ const CampaignsCard = () => {
               // here calculate and hide the campaign if time is not started or time end
               const startDate = new Date(campaign.startDate);
               const endDate = new Date(campaign.endDate);
+
               const currentDate = new Date();
 
               if (currentDate < startDate || currentDate > endDate) {
                 return null;
               }
-
               const remainingTime = calculateRemainingTime(campaign.endDate);
 
               return (
@@ -208,7 +209,7 @@ const CampaignsCard = () => {
         >
           <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4">
             {participants ? (
-              participants.map((participant) => (
+              participants.map((participant: Candidate) => (
                 <Card
                   key={participant.id}
                   className=""

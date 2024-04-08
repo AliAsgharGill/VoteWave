@@ -2,51 +2,7 @@ import { NavLink } from "react-router-dom";
 export const Footer = () => {
   return (
     <div className="px-4 pt-16  bg-primaryColor-900 ">
-      <div className="flex justify-between items-center ">
-        <NavLink
-          to="/"
-          aria-label="Go home"
-          title="Vote.Wave"
-          className="inline-flex items-center"
-        >
-          <svg
-            className="w-8 text-deep-purple-accent-400"
-            viewBox="0 0 24 24"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeMiterlimit="10"
-            stroke="currentColor"
-            fill="none"
-          >
-            <rect x="3" y="1" width="7" height="12" />
-            <rect x="3" y="17" width="7" height="6" />
-            <rect x="14" y="1" width="7" height="6" />
-            <rect x="14" y="11" width="7" height="12" />
-          </svg>
-          <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-            Vote.Wave
-          </span>
-        </NavLink>
-        <div className=" flex flex-col justify-center sm:flex-row sm:items-center space-x-8 lg:flex">
-          <NavLink
-            to="/"
-            aria-label="Our product"
-            title="Our product"
-            className="hover:underline font-bold me-4 md:me-6  tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
-          >
-            Campaigns
-          </NavLink>
-          <NavLink
-            to="/"
-            aria-label="Our product"
-            title="Our product"
-            className="hover:underline font-bold me-4 md:me-6  tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400 "
-          >
-            Result
-          </NavLink>          
-        </div>
-      </div>
+     
 
       <div className="flex flex-col justify-between pt-5 pb-10 border-t sm:flex-row">
         <p className="text-sm text-alphaColor-900">

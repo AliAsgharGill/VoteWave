@@ -16,7 +16,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Campaign, Candidate } from "../../Types/types";
+import { Candidate } from "../../Types/types";
 import { RootState } from "@reduxjs/toolkit";
 
 ChartJS.register(

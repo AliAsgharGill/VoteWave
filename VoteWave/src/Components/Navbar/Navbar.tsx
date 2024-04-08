@@ -167,7 +167,7 @@ export const Nav = () => {
                     <div>
                       <div>
                         <Dropdown
-                          className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+                          className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded  shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none "
                           // className="flex items-center space-x-1 hover:text-white cursor-pointer"
                           menu={{
                             items,
@@ -175,13 +175,13 @@ export const Nav = () => {
                         >
                           <a onClick={(e) => e.preventDefault()}>
                             <Space>
-                              <div className="flex items-center space-x-1 hover:text-white cursor-pointer">
+                              <div className="flex items-center space-x-1 hover:text-white cursor-pointer ">
                                 <img
                                   className=" rounded-full border-white "
                                   src={user ? user.image : admin.image}
                                   alt="Image"
-                                  height="30px"
-                                  width="30px"
+                                  // height="40px"
+                                  width="38px"
                                 />
                                 {/* <FaRegCircleUser /> */}
                                 <b>{user ? user.firstName : admin.firstName}</b>
@@ -192,7 +192,7 @@ export const Nav = () => {
                         </Dropdown>
                         <div
                           id="dropdown"
-                          className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+                          className="z-10 hidden divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 "
                         ></div>
                       </div>
                     </div>
@@ -288,11 +288,11 @@ export const Nav = () => {
                       ) : (
                         <>
                           {user || admin ? (
-                            <li>
+                            <li className="flex justify-center center w-full  ">
                               <div>
                                 <div>
                                   <Dropdown
-                                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
+                                    className="  inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-300 rounded shadow-md bg-secondaryColor-900 hover:bg-secondaryColor-800 focus:shadow-outline focus:outline-none"
                                     // className="flex items-center space-x-1 hover:text-white cursor-pointer"
                                     menu={{
                                       items,
@@ -302,7 +302,7 @@ export const Nav = () => {
                                       <Space>
                                         <div className="flex items-center space-x-1 hover:text-white cursor-pointer">
                                           <img
-                                            className=" rounded-full border-white "
+                                            className=" rounded-full border-white  "
                                             src={
                                               user ? user.image : admin.image
                                             }
@@ -367,7 +367,6 @@ export const Nav = () => {
                           Result
                         </NavLink>
                       </li>
-                                            
                     </ul>
                   </nav>
                 </div>
