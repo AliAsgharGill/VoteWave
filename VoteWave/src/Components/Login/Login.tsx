@@ -130,7 +130,7 @@ const Login = ({ type }: { type: string }) => {
 
           <Form.Item>
             <p className="text-alphaColor-900 font-bold text-center">
-              Dont have an account-
+              Don't have an account-
               <Link
                 className="text-white hover:text-secondaryColor-900 font-bold  hover:underline "
                 to="/signup/user"
