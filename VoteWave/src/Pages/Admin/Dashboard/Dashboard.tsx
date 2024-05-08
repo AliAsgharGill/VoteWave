@@ -15,10 +15,10 @@ import { v4 as uuidv4 } from "uuid";
 import { MdCopyAll } from "react-icons/md";
 import axios from "axios";
 import moment from "moment";
-import { allowedUserSliceActions } from "../../../Slices/allowedUsersSlice";
-import { deleteAllTokens } from "../../../Slices/tokenSlice";
+import { allowedUserSliceActions } from "../../../Redux/Slices/allowedUsersSlice";
+import { deleteAllTokens } from "../../../Redux/Slices/tokenSlice";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { campaignSliceActions } from "../../../Slices/campaignSlice";
+import { campaignSliceActions } from "../../../Redux/Slices/campaignSlice";
 import { blue } from "@mui/material/colors";
 
 type FieldType = {

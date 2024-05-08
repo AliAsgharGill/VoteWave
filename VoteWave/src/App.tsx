@@ -9,15 +9,15 @@ import {
 // Layout Page
 import Layout from "./Router/Layout/Layout";
 // Component and Pages
-import Home from "./Components/Home/Home";
-import Campaigns from "./Components/Campaigns/Campaigns";
-import Result from "./Components/Result/Result";
+import Home from "./Pages/Home/Home";
+import Campaigns from "./Pages/Campaigns/Campaigns";
+import Result from "./Pages/Result/Result";
 import NoMatch from "./Components/NoMatch/NoMatch";
 import Signup from "./Components/Signup/Signup";
 import Login from "./Components/Login/Login";
-import CampaignManagement from "./Components/Admin/campaignManagement/campaignManagement";
+import CampaignManagement from "./Pages/Admin/campaignManagement/campaignManagement";
 import User from "./Components/User/User";
-import Dashboard from "./Components/Admin/Dashboard/Dashboard";
+import Dashboard from "./Pages/Admin/Dashboard/Dashboard";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,9 +42,7 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  return (
-      <RouterProvider router={router} />
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

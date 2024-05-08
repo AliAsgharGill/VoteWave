@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { Campaign, CampaignState, UpdatedCampaign } from "../Types/types";
+import { Campaign, CampaignState, UpdatedCampaign } from "../../Interfaces/Interfaces";
 import { message } from "antd";
 
 const apiURL = "http://localhost:3000/campaigns";

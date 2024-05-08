@@ -5,14 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import { FaLink } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { campaignSliceActions } from "../../../Slices/campaignSlice";
-import { candidatesSliceAction } from "../../../Slices/CandidateSlice";
+import { campaignSliceActions } from "../../../Redux/Slices/campaignSlice";
+import { candidatesSliceAction } from "../../../Redux/Slices/CandidateSlice";
 import {
   DeleteOutlined,
   EditOutlined,
   IdcardOutlined,
 } from "@ant-design/icons";
-import { Campaign, Candidate, CandidatesState } from "../../../Types/types";
+import { Campaign, Candidate, CandidatesState } from "../../../Interfaces/Interfaces";
 import { RootState } from "@reduxjs/toolkit";
 
 const CampaignManagementPage = () => {

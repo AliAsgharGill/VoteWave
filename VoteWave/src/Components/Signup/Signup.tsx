@@ -6,10 +6,10 @@ import { MdEmail } from "react-icons/md";
 import { FaExternalLinkSquareAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { signupUser } from "../../Slices/authSlice";
+import { signupUser } from "../../Redux/Slices/authSlice";
 import axios from "axios";
-import { setUser } from "../../Slices/userSlice";
-import { setAdmin } from "../../Slices/adminSlice";
+import { setUser } from "../../Redux/Slices/userSlice";
+import { setAdmin } from "../../Redux/Slices/adminSlice";
 
 interface FormValues {
   firstName: string;

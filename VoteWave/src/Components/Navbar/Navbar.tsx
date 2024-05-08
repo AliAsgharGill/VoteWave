@@ -2,10 +2,10 @@ import { Modal, Dropdown, Space } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { removeUser } from "../../Slices/userSlice";
+import { removeUser } from "../../Redux/Slices/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { removeAdmin } from "../../Slices/adminSlice";
+import { removeAdmin } from "../../Redux/Slices/adminSlice";
 
 export const Nav = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

@@ -1,8 +1,8 @@
 // candidate Interfaces
 export interface Candidate {
   id: number;
-  candidateName: string;  
-  candidateSymbol: string;  
+  candidateName: string;
+  candidateSymbol: string;
   campaignID: number;
   votes: number;
 }
@@ -19,8 +19,8 @@ export interface Campaign {
   name: string;
   description: string;
   image: string;
-  startDate:string;
-  endDate:string;
+  startDate: string;
+  endDate: string;
 }
 
 export interface CampaignState {
@@ -61,4 +61,10 @@ export interface TokensState {
   loading: boolean;
   error: null | unknown;
   cleared: boolean;
+}
+
+// Form Interface
+export interface FormValues {
+  email: string;
+  password: string;
 }

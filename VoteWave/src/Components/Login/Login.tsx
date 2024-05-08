@@ -5,13 +5,9 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { setUser } from "../../Slices/userSlice";
-import { setAdmin } from "../../Slices/adminSlice";
-
-interface FromValues {
-  email: string;
-  password: string;
-}
+import { setUser } from "../../Redux/Slices/userSlice";
+import { setAdmin } from "../../Redux/Slices/adminSlice";
+import { FormValues } from "../../Interfaces/Interfaces";
 
 const Login = ({ type }: { type: string }) => {
   const dispatch = useDispatch();
@@ -30,7 +26,7 @@ const Login = ({ type }: { type: string }) => {
     }
   }, [admin, navigate, user]);
 
-  const onFinish = async (values: FromValues) => {
+  const onFinish = async (values: FormValues) => {
     // console.log("Values:", values);
     try {
       const emailResponse = await axios.get(

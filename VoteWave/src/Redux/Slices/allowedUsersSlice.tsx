@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { AllowedUser, AllowedUserState } from "../Types/types";
+import { AllowedUser, AllowedUserState } from "../../Interfaces/Interfaces";
 
 const apiURL = "http://localhost:3000/allowedUsers";
 

@@ -3,8 +3,8 @@ import { message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { campaignSliceActions } from "../../Slices/campaignSlice";
-import { candidatesSliceAction } from "../../Slices/CandidateSlice";
+import { campaignSliceActions } from "../../Redux/Slices/campaignSlice";
+import { candidatesSliceAction } from "../../Redux/Slices/CandidateSlice";
 import { Bar, Doughnut } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -16,7 +16,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { Candidate } from "../../Types/types";
+import { Candidate } from "../../Interfaces/Interfaces";
 import { RootState } from "@reduxjs/toolkit";
 
 ChartJS.register(

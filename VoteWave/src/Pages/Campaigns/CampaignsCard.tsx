@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal, Card, message, Button } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { campaignSliceActions } from "../../Slices/campaignSlice";
+import { campaignSliceActions } from "../../Redux/Slices/campaignSlice";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { MdHowToVote } from "react-icons/md";
-import { candidatesSliceAction } from "../../Slices/CandidateSlice";
-import { Campaign, Candidate } from "../../Types/types";
+import { candidatesSliceAction } from "../../Redux/Slices/CandidateSlice";
+import { Campaign, Candidate } from "../../Interfaces/Interfaces";
 
 
 

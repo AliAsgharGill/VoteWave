@@ -11,9 +11,9 @@ import {
   Legend,
 } from "chart.js";
 import { useDispatch, useSelector } from "react-redux";
-import { Candidate } from "../../Types/types";
+import { Candidate } from "../../Interfaces/Interfaces";
 import { useEffect } from "react";
-import { candidatesSliceAction } from "../../Slices/CandidateSlice";
+import { candidatesSliceAction } from "../../Redux/Slices/CandidateSlice";
 // import faker from 'faker';
 
 ChartJS.register(
