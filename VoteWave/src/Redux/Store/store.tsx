@@ -17,7 +17,7 @@ import {
   REGISTER,
   REHYDRATE,
 } from "redux-persist";
-import { thunk } from "redux-thunk";
+
 
 const rootReducer = combineReducers({
   admin: adminReducer,
