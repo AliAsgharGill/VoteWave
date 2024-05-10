@@ -15,7 +15,7 @@ const adminSlice = createSlice({
       state,
       action: PayloadAction<{
         firstName: string;
-        secondName: string;
+        secondName: string; 
         email: string;
       }>
     ) => {
